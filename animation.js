@@ -1,6 +1,10 @@
+// Create new Image objects
+
 const sun = new Image();
 const moon = new Image();
 const earth = new Image();
+
+// Set the appropriate images to the image objects and start drawing
 function init() {
     sun.src = "./images/sun.png";
     moon.src = "./images/moon.png";
@@ -9,6 +13,7 @@ function init() {
 }
 
 function draw() {
+    // Check if the animation is paused
     if(isRunning === true) {
         const ctx = document.getElementById("canvas").getContext("2d");
 
@@ -20,12 +25,14 @@ function draw() {
         ctx.save();
         ctx.translate(150, 150);
 
-        // Earth
+        // Create the earth animation using real time values
         const time = new Date();
         ctx.rotate(
             ((2 * Math.PI) / 60) * time.getSeconds() +
             ((2 * Math.PI) / 60000) * time.getMilliseconds()
         );
+
+        // Set starting position for earth and draw image to screen
         ctx.translate(105, 0);
         ctx.fillRect(0, -12, 40, 24); // Shadow
         ctx.drawImage(earth, -12, -12);
@@ -40,6 +47,7 @@ function draw() {
         ctx.drawImage(moon, -3.5, -3.5);
         ctx.restore();
 
+        // Restores the most recently saved drawn state
         ctx.restore();
 
         ctx.beginPath();
@@ -50,6 +58,7 @@ function draw() {
     }
 
 
+    // Redraw frame
     window.requestAnimationFrame(draw);
 
 }
